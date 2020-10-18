@@ -25,3 +25,11 @@ class Twitter:
 
     class API:
         TIMELINE_API_URL = f"https://api.twitter.com/1.1/statuses/user_timeline.json"
+
+
+class Stock:
+    class Ticker:
+        TQQQ = "TQQQ"
+        UPRO = "UPRO"
+        UDOW = "UDOW"
+        APPLE = "AAPL"

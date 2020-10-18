@@ -14,9 +14,14 @@ def get_secret(key):
 
 
 class Twitter:
-    API_BEARER_TOKEN = get_secret("BEARER_TOKEN")
-    API_ACCESS_TOKEN = get_secret("ACCESS_TOKEN")
-    API_ACCESS_TOKEN_SECRET = get_secret("ACCESS_TOKEN_SECRET")
-    TIMELINE_API_URL = f"https://api.twitter.com/1.1/statuses/user_timeline.json"
-    TRUMP = "realdonaldtrump"
-    BIDEN = "JoeBiden"
+    class ScreenName:
+        TRUMP = "realdonaldtrump"
+        BIDEN = "JoeBiden"
+
+    class Token:
+        API_BEARER_TOKEN = get_secret("BEARER_TOKEN")
+        API_ACCESS_TOKEN = get_secret("ACCESS_TOKEN")
+        API_ACCESS_TOKEN_SECRET = get_secret("ACCESS_TOKEN_SECRET")
+
+    class API:
+        TIMELINE_API_URL = f"https://api.twitter.com/1.1/statuses/user_timeline.json"

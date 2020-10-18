@@ -1,7 +1,7 @@
 from functools import partial
 
 import requests
-from constants import Twitter
+from src.constants import Twitter
 
 __all__ = ["api_requests"]
 
@@ -26,4 +26,4 @@ class APIRequests:
         return get(*args, **kwargs)
 
 
-api_requests = APIRequests(Twitter.API_TOKEN)
+api_requests = APIRequests(Twitter.Token.API_BEARER_TOKEN)

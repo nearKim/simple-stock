@@ -8,13 +8,15 @@ def get_secret(key):
             secrets = json.loads(f.read())
         return secrets[key]
     except KeyError:
-        raise ValueError(f"***REMOVED***key***REMOVED***가 없습니다.")
+        raise ValueError(f"{key}가 없습니다.")
     except Exception:
         return None
 
 
 class Twitter:
-    API_TOKEN = get_secret("TOKEN")
+    API_BEARER_TOKEN = get_secret("BEARER_TOKEN")
+    API_ACCESS_TOKEN = get_secret("ACCESS_TOKEN")
+    API_ACCESS_TOKEN_SECRET = get_secret("ACCESS_TOKEN_SECRET")
     TIMELINE_API_URL = f"https://api.twitter.com/1.1/statuses/user_timeline.json"
     TRUMP = "realdonaldtrump"
     BIDEN = "JoeBiden"

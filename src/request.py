@@ -11,9 +11,9 @@ class APIRequests:
         self.token = token
 
     def build_header(self):
-        header = ***REMOVED******REMOVED***
+        header = {}
         if self.token:
-            header["Authorization"] = f"Bearer ***REMOVED***self.token***REMOVED***"
+            header["Authorization"] = f"Bearer {self.token}"
         return header
 
     def get(self, *args, **kwargs):

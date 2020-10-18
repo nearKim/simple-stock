@@ -3,7 +3,7 @@ import json
 
 def get_secret(key):
     try:
-        secret_file = "secrets.json"
+        secret_file = "../secrets.json"
         with open(secret_file) as f:
             secrets = json.loads(f.read())
         return secrets[key]

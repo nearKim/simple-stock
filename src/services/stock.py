@@ -1,5 +1,6 @@
 import typing
 
+import pandas as pd
 import yfinance as yf
 from pandas import DataFrame
 from src.constants import Stock
@@ -20,7 +21,14 @@ class StockService:
 
         return df.drop(["Open", "Low", "High", "Adj Close"], axis=1, level=1)
 
-    # TODO
-    # n_df = df.drop(['Open', 'Low', 'High', 'Adj Close'], axis=1, level=1)
-    # n_df.columns.get_level_values(1)
-    # n_df.iloc[:, n_df.columns.get_level_values(1)=='Close'].diff()
+    def preprocess_dataframe(self, multilevel_df: DataFrame) -> DataFrame:
+        idx = pd.IndexSlice
+        diff_df = (
+            multilevel_df.loc[:, idx[:"Close"]]
+            .rename(columns={"Close": "increased"})
+            .diff()
+            > 0
+        )
+        result_df = pd.concat([multilevel_df, diff_df], axis=1).sort_index(axis=1)
+
+        return result_df

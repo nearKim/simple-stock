@@ -2,7 +2,7 @@ import datetime
 import logging
 
 from pandas import DataFrame
-from src.constants import INITIAL_MONEY, TRANSACTION_BATCH, Twitter
+from src.constants import INITIAL_MONEY, TRANSACTION_BATCH, Stock, Twitter
 from src.services.stock import stock_service
 from src.services.twitter import tweeter_service
 
@@ -53,8 +53,8 @@ def calculate(x: int, y: int, z: int, multilevel_df: DataFrame, ticker: str):
     return money + leftover
 
 
-def get_dataframe(screen_name):
-    df = stock_service.download_stock_dataframe(["SQQQ", "TQQQ"])
+def get_dataframe(screen_name, tickers: list):
+    df = stock_service.download_stock_dataframe(tickers)
     df = stock_service.preprocess_dataframe(df)
 
     if screen_name == Twitter.ScreenName.TRUMP:
@@ -73,8 +73,9 @@ def get_dataframe(screen_name):
 if __name__ == "__main__":
     now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     logging.basicConfig(filename=f"calculation_log-{now}.log", level=logging.DEBUG)
+    tickers = [Stock.Ticker.UDOW, Stock.Ticker.UPRO, Stock.Ticker.TQQQ]
 
-    trump_df = get_dataframe(Twitter.ScreenName.TRUMP)
-    biden_df = get_dataframe(Twitter.ScreenName.BIDEN)
+    trump_df = get_dataframe(Twitter.ScreenName.TRUMP, tickers)
+    biden_df = get_dataframe(Twitter.ScreenName.BIDEN, tickers)
 
     calculate(5, 3, 1, trump_df, "TQQQ")

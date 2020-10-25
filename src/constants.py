@@ -1,9 +1,14 @@
 import json
+from pathlib import Path
+
+INITIAL_MONEY = 10_000
+TRANSACTION_BATCH = 1_000
 
 
 def get_secret(key):
+    pwd = Path(".")
     try:
-        secret_file = "../secrets.json"
+        secret_file = pwd / "secrets.json"
         with open(secret_file) as f:
             secrets = json.loads(f.read())
         return secrets[key]

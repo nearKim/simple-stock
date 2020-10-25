@@ -8,6 +8,8 @@ from src.services.twitter import tweeter_service
 
 
 def calculate(x: int, y: int, z: int, multilevel_df: DataFrame, ticker: str):
+    logging.info(f"Start `calculate`...\nx: {x}, y: {y}, z: {z}, ticker: {ticker}\n")
+
     if x < y:
         raise ValueError("x는 y보다 항상 커야 합니다.")
     if not ticker:
@@ -37,13 +39,16 @@ def calculate(x: int, y: int, z: int, multilevel_df: DataFrame, ticker: str):
             stocks = 0
 
     leftover: float = stock_service.cleanup(processed_df, stocks)
-    print(
+
+    logging.info(
+        f"Result:\n"
         f"x:{x}, y:{y}, z:{z}, ticker:{ticker} -> "
         f"거래횟수:{transactions_count}, "
         f"보유량:{stocks}, "
         f"처리 전 금액: {money}, "
-        f"잔금: {leftover}, "
-        f"처리 후 금액: {money + leftover}"
+        f"잔금: {leftover}, \n"
+        f"처리 후 금액: {money + leftover}\n"
+        f"End `calculate`...\n"
     )
     return money + leftover
 

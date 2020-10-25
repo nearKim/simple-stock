@@ -66,7 +66,7 @@ class TwitterService:
             tweet for tweet in tweet_objects if not (tweet.is_retweet or tweet.is_quote)
         ]
 
-    def get_tweets_period(self, tweet_object_list: typing.List[Tweet]) -> str:
+    def validate_period(self, tweet_object_list: typing.List[Tweet]) -> typing.NoReturn:
         min_dt = max_dt = None
         for tweet in tweet_object_list:
             created_at = tweet.created_at
@@ -79,15 +79,9 @@ class TwitterService:
             if max_dt < created_at:
                 max_dt = created_at
         delta = max_dt - min_dt
-        result = "1d"
 
-        if delta > timedelta(days=1):
-            result = "5d"
-        elif delta > timedelta(days=5):
-            result = "1wk"
-        elif delta > timedelta(days=7):
-            result = "1mo"
-        return result
+        if delta > timedelta(days=7):
+            raise ValueError('1wk보다 큰 범위가 필요합니다.')
 
     def get_trump_tweet_objects(self, *, exclude_rt=True) -> typing.List[Tweet]:
         objects = self.get_timeline_tweet_objects(Twitter.ScreenName.TRUMP)

@@ -62,7 +62,7 @@ def get_dataframe(screen_name, tickers: list):
     else:
         tweet_list = tweeter_service.get_biden_tweet_objects()
     try:
-        tweeter_service.validate_period(tweet_list)
+        tweeter_service.validate_perciod(tweet_list)
     except ValueError:
         # TODO
         pass
